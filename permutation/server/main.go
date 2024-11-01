@@ -1,26 +1,3 @@
-// package main
-
-// // fullPermutation 全排列
-// func fullPermutation(nums []int) [][]int {
-// 	var res [][]int
-// 	var dfs func(int)
-// 	dfs = func(x int) {
-// 		if x == len(nums)-1 {
-// 			tmp := make([]int, len(nums))
-// 			copy(tmp, nums)
-// 			res = append(res, tmp)
-// 			return
-// 		}
-// 		for i := x; i < len(nums); i++ {
-// 			nums[x], nums[i] = nums[i], nums[x]
-// 			dfs(x + 1)
-// 			nums[x], nums[i] = nums[i], nums[x]
-// 		}
-// 	}
-// 	dfs(0)
-// 	return res
-// }
-
 package main
 
 import (
