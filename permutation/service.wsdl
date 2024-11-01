@@ -1,0 +1,79 @@
+<definitions xmlns:soap="http://schemas.xmlsoap.org/wsdl/soap/"
+             xmlns:tns="http://localhost:8080/permutation"
+             xmlns:xsd="http://www.w3.org/2001/XMLSchema"
+             xmlns:wsdl="http://schemas.xmlsoap.org/wsdl/"
+             name="PermutationService"
+             targetNamespace="http://localhost:8080/permutation"
+             xmlns="http://schemas.xmlsoap.org/wsdl/">
+
+    <types>
+        <xsd:schema targetNamespace="http://localhost:8080/permutation">
+            <xsd:element name="PermutationsRequest">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="nums" minOccurs="1" maxOccurs="1">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="number" type="xsd:int" minOccurs="1" maxOccurs="6"/>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+
+            <xsd:element name="PermutationsResponse">
+                <xsd:complexType>
+                    <xsd:sequence>
+                        <xsd:element name="permutations" minOccurs="1" maxOccurs="unbounded">
+                            <xsd:complexType>
+                                <xsd:sequence>
+                                    <xsd:element name="perm" minOccurs="1" maxOccurs="6">
+                                        <xsd:complexType>
+                                            <xsd:sequence>
+                                                <xsd:element name="number" type="xsd:int" minOccurs="1" maxOccurs="6"/>
+                                            </xsd:sequence>
+                                        </xsd:complexType>
+                                    </xsd:element>
+                                </xsd:sequence>
+                            </xsd:complexType>
+                        </xsd:element>
+                    </xsd:sequence>
+                </xsd:complexType>
+            </xsd:element>
+        </xsd:schema>
+    </types>
+
+    <message name="PermutationsRequestMessage">
+        <part name="parameters" element="tns:PermutationsRequest"/>
+    </message>
+    <message name="PermutationsResponseMessage">
+        <part name="parameters" element="tns:PermutationsResponse"/>
+    </message>
+
+    <portType name="PermutationPortType">
+        <operation name="GetPermutations">
+            <input message="tns:PermutationsRequestMessage"/>
+            <output message="tns:PermutationsResponseMessage"/>
+        </operation>
+    </portType>
+
+    <binding name="PermutationBinding" type="tns:PermutationPortType">
+        <soap:binding style="rpc" transport="http://schemas.xmlsoap.org/soap/http"/>
+        <operation name="GetPermutations">
+            <soap:operation soapAction="http://localhost:8080/permutation/GetPermutations"/>
+            <input>
+                <soap:body use="literal"/>
+            </input>
+            <output>
+                <soap:body use="literal"/>
+            </output>
+        </operation>
+    </binding>
+
+    <service name="PermutationService">
+        <port name="PermutationPort" binding="tns:PermutationBinding">
+            <soap:address location="http://localhost:8080/permutation"/>
+        </port>
+    </service>
+</definitions>
